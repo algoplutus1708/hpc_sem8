@@ -5,7 +5,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     int size = 10000000;
     vector<int> data(size, 1);
 
@@ -13,12 +14,15 @@ int main() {
     int maxVal = numeric_limits<int>::min();
     long long sum = 0;
 
-    #pragma omp parallel reduction(min:minVal) reduction(max:maxVal) reduction(+:sum)
+#pragma omp parallel reduction(min : minVal) reduction(max : maxVal) reduction(+ : sum)
     {
-        #pragma omp for
-        for (int i = 0; i < size; i++) {
-            if (data[i] < minVal) minVal = data[i];
-            if (data[i] > maxVal) maxVal = data[i];
+#pragma omp for
+        for (int i = 0; i < size; i++)
+        {
+            if (data[i] < minVal)
+                minVal = data[i];
+            if (data[i] > maxVal)
+                maxVal = data[i];
             sum += data[i];
         }
     }
